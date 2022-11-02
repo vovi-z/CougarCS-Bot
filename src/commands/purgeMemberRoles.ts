@@ -2,9 +2,9 @@ import { Role, Guild, GuildMember, Message, messageLink, SlashCommandBuilder } f
 import { Command } from "../interfaces/Command";
 import { createEmbeded } from "../utils/embeded";
 
-export const refreshroles: Command = {
+export const purgeMemberRoles: Command = {
   data: new SlashCommandBuilder()
-    .setName("refreshroles")
+    .setName("purgememberroles")
     .setDescription("Refresh member status for all members"),
   run: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: false });
