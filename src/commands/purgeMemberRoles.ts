@@ -5,7 +5,7 @@ import { createEmbeded } from "../utils/embeded";
 export const purgeMemberRoles: Command = {
   data: new SlashCommandBuilder()
     .setName("purgememberroles")
-    .setDescription("Refresh member status for all members"),
+    .setDescription("Purge member role for all members"),
   run: async (interaction, client) => {
     await interaction.deferReply({ ephemeral: false });
 
@@ -14,19 +14,17 @@ export const purgeMemberRoles: Command = {
     let usersRemoved: string[] = [];
     if (memberRole) {
       members?.forEach(member => {
+        // TODO: log persons removed
         member.roles.remove(memberRole, "End of semester member expiry");
         usersRemoved.push(member.displayName);
       })
     }
 
-    let messageDescription = usersRemoved.length > 0 ? "Removed member role from the following users: " : "No member roles removed"
-    for (const name of usersRemoved) {
-        messageDescription += "\n" + name
-    }
+    let messageDescription = usersRemoved.length + " member roles purged."
 
     const { user } = interaction;
     const returnMessage = createEmbeded(
-      "Member roles refreshed",
+      "Member Roles Purged",
       messageDescription,
       user,
       client
